@@ -1,7 +1,7 @@
 from statistics import mean
 from typing import Dict, List, Optional
 
-from microeval.significance.bootstrap import bootstrap_ci, bootstrap_pvalue
+from juryeval.significance.bootstrap import bootstrap_ci, bootstrap_pvalue
 
 
 def win_rate(

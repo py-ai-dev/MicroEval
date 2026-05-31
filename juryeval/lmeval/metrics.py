@@ -6,8 +6,8 @@ the ``@register_metric`` decorator.
 Usage:
     .. code-block:: bash
 
-        pip install microeval[lmeval]
-        python -c "from microeval.lmeval import register_all; register_all()"
+        pip install juryeval[lmeval]
+        python -c "from juryeval.lmeval import register_all; register_all()"
         lm-eval --model hf --model_args pretrained=gpt2 --tasks my_task
 """
 
@@ -52,8 +52,8 @@ def register_all():
             aggregation="mean",
         )
         def pairwise_judge_score(items, judge_model="gpt-4", **kwargs):
-            """LLM pairwise judge score. Requires ``microeval[judge]``."""
-            from microeval.judges import PairwiseJudge
+            """LLM pairwise judge score. Requires ``juryeval[judge]``."""
+            from juryeval.judges import PairwiseJudge
 
             judge = PairwiseJudge(model=judge_model)
             scores = []
@@ -71,8 +71,8 @@ def register_all():
             aggregation="mean",
         )
         def pointwise_judge_score(items, judge_model="gpt-4", **kwargs):
-            """LLM pointwise judge score. Requires ``microeval[judge]``."""
-            from microeval.judges import PointwiseJudge
+            """LLM pointwise judge score. Requires ``juryeval[judge]``."""
+            from juryeval.judges import PointwiseJudge
 
             judge = PointwiseJudge(model=judge_model)
             scores = []
@@ -82,7 +82,7 @@ def register_all():
             return scores
 
     _registered = True
-    logger.info("Registered microeval metrics: pairwise_judge, pointwise_judge")
+    logger.info("Registered juryeval metrics: pairwise_judge, pointwise_judge")
 
 
 def _mean(items):

@@ -1,5 +1,5 @@
 import pytest
-from microeval.utils import tokenize, ngrams, safe_div, flatten
+from juryeval.utils import tokenize, ngrams, safe_div, flatten
 
 
 class TestTokenize:

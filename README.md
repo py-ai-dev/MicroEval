@@ -1,4 +1,4 @@
-# MicroEval
+# juryeval
 
 Lightweight NLP/LLM evaluation toolkit — metrics, LLM-as-Judge infrastructure, statistical significance testing, and prompt robustness analysis.
 
@@ -7,14 +7,14 @@ Designed for fast smoke-tests, demos, and as a shared dependency for evaluation 
 ## Install
 
 ```bash
-pip install microeval
+pip install juryeval
 
 # Optional feature sets:
-pip install microeval[full]    # all metrics (sklearn, sacrebleu, transformers, etc.)
-pip install microeval[judge]   # LLM-as-Judge (openai)
-pip install microeval[semantic]  # embedding similarity (sentence-transformers)
-pip install microeval[lmeval]  # lm-eval-harness integration
-pip install microeval[all]     # everything
+pip install juryeval[full]    # all metrics (sklearn, sacrebleu, transformers, etc.)
+pip install juryeval[judge]   # LLM-as-Judge (openai)
+pip install juryeval[semantic]  # embedding similarity (sentence-transformers)
+pip install juryeval[lmeval]  # lm-eval-harness integration
+pip install juryeval[all]     # everything
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ pip install microeval[all]     # everything
 ### Metrics
 
 ```python
-from microeval import (
+from juryeval import (
     eval_classification, eval_translation, eval_summarization,
     perplexity, flesch_kincaid, bert_score,
 )
@@ -38,7 +38,7 @@ bs     = bert_score(preds=["answer"], refs=["reference"])
 ### LLM-as-Judge
 
 ```python
-from microeval import PairwiseJudge, PointwiseJudge, MultiJudgeEnsemble, JudgeCalibration
+from juryeval import PairwiseJudge, PointwiseJudge, MultiJudgeEnsemble, JudgeCalibration
 
 judge = PairwiseJudge("gpt-4")
 result = judge.compare(
@@ -71,7 +71,7 @@ report = cal.evaluate(judge)
 ### Statistical Significance
 
 ```python
-from microeval import bootstrap_ci, compare_models
+from juryeval import bootstrap_ci, compare_models
 
 ci = bootstrap_ci(scores, num_resamples=2000)
 # {"estimate": 0.72, "lower": 0.68, "upper": 0.76, "std_err": 0.02}
@@ -83,7 +83,7 @@ result = compare_models(model_a_scores, model_b_scores)
 ### Prompt Robustness
 
 ```python
-from microeval import PromptVariance
+from juryeval import PromptVariance
 
 pv = PromptVariance(model_fn=lambda prompt: "output")
 report = pv.analyze("What is 2+2?")
@@ -93,8 +93,8 @@ report = pv.analyze("What is 2+2?")
 ### LM Eval Harness Integration
 
 ```bash
-pip install microeval[lmeval]
-python -c "from microeval.lmeval import register_all; register_all()"
+pip install juryeval[lmeval]
+python -c "from juryeval.lmeval import register_all; register_all()"
 
 # Then register pairwise_judge / pointwise_judge metrics in your task YAML:
 # metric_list:

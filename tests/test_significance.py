@@ -1,5 +1,5 @@
 import pytest
-from microeval.significance import bootstrap_ci, bootstrap_pvalue, win_rate, compare_models
+from juryeval.significance import bootstrap_ci, bootstrap_pvalue, win_rate, compare_models
 
 
 class TestBootstrapCI:

@@ -1,14 +1,14 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="microeval",
-    version="0.3.0",
+    name="juryeval",
+    version="0.4.0",
     description="Lightweight NLP/LLM evaluation toolkit — metrics, judges, significance testing",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     author="Liodon AI",
     author_email="info@liodon.ai",
-    url="https://github.com/liodon-ai/MicroEval",
+    url="https://github.com/liodon-ai/juryeval",
     license="MIT",
     packages=find_packages(),
     python_requires=">=3.9",

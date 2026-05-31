@@ -35,10 +35,10 @@ jobs:
 
       - name: Generate API docs
         run: |
-          python -m pdoc microeval \
+          python -m pdoc juryeval \
             -t docs/ \
-            --logo "https://raw.githubusercontent.com/liodon-ai/MicroEval/main/docs/logo.svg" \
-            --logo-link "https://github.com/liodon-ai/MicroEval" \
+            --logo "https://raw.githubusercontent.com/liodon-ai/juryeval/main/docs/logo.svg" \
+            --logo-link "https://github.com/liodon-ai/juryeval" \
             -d google \
             -o docs/
 

@@ -4,10 +4,10 @@ These tests use monkeypatching to avoid real API calls.
 """
 
 import pytest
-from microeval.judges.pairwise import PairwiseJudge, DEFAULT_PAIRWISE_PROMPT
-from microeval.judges.pointwise import PointwiseJudge
-from microeval.judges.ensemble import MultiJudgeEnsemble
-from microeval.judges.calibration import JudgeCalibration
+from juryeval.judges.pairwise import PairwiseJudge, DEFAULT_PAIRWISE_PROMPT
+from juryeval.judges.pointwise import PointwiseJudge
+from juryeval.judges.ensemble import MultiJudgeEnsemble
+from juryeval.judges.calibration import JudgeCalibration
 
 
 class TestPairwiseJudge:

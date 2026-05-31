@@ -1,5 +1,5 @@
 import pytest
-from microeval.prompt import PromptVariance
+from juryeval.prompt import PromptVariance
 
 
 class TestPromptVariance:

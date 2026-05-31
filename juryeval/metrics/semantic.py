@@ -19,7 +19,7 @@ def _load_encoder(model_name="all-MiniLM-L6-v2"):
         if not _SENTENCE_TRANSFORMERS_AVAILABLE:
             raise ImportError(
                 "sentence-transformers is required for semantic similarity. "
-                "Install: pip install microeval[semantic]"
+                "Install: pip install juryeval[semantic]"
             )
         _encoder = SentenceTransformer(model_name)
     return _encoder

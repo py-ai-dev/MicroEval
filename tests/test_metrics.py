@@ -1,11 +1,11 @@
 import pytest
 import math
-from microeval.metrics import (
+from juryeval.metrics import (
     eval_classification,
     eval_translation,
     eval_summarization,
 )
-from microeval.metrics.fluency import flesch_kincaid
+from juryeval.metrics.fluency import flesch_kincaid
 
 
 class TestClassification:

@@ -40,7 +40,7 @@ class JudgeCalibration:
 
     def _measure_position_bias(self, judge: Any, n: int) -> float:
         """Check if judge consistently prefers A or B when answers are identical."""
-        from microeval.judges.pairwise import PairwiseJudge
+        from juryeval.judges.pairwise import PairwiseJudge
 
         if not isinstance(judge, PairwiseJudge):
             return 0.0
