@@ -1,23 +1,47 @@
 # juryeval
 
-Lightweight NLP/LLM evaluation toolkit — metrics, LLM-as-Judge infrastructure, statistical significance testing, and prompt robustness analysis.
+Lightweight NLP/LLM evaluation toolkit: metrics, LLM-as-Judge, statistical significance testing, prompt robustness analysis, and a CLI.
 
-Designed for fast smoke-tests, demos, and as a shared dependency for evaluation frameworks like LM Eval Harness, OpenCompass, and Lighteval.
+Designed for fast smoke-tests, demos, and as a drop-in dependency for frameworks like LM Eval Harness, DeepEval, Lighteval, and LangChain.
 
 ## Install
 
 ```bash
 pip install juryeval
-
-# Optional feature sets:
-pip install juryeval[full]    # all metrics (sklearn, sacrebleu, transformers, etc.)
-pip install juryeval[judge]   # LLM-as-Judge (openai)
-pip install juryeval[semantic]  # embedding similarity (sentence-transformers)
-pip install juryeval[lmeval]  # lm-eval-harness integration
-pip install juryeval[all]     # everything
 ```
 
-## Usage
+Optional extras:
+
+| Extra | What you get |
+|-------|-------------|
+| `[judge]` | LLM-as-Judge (openai) |
+| `[semantic]` | Embedding similarity (sentence-transformers) |
+| `[lmeval]` | lm-eval-harness integration |
+| `[full]` | All metrics (sklearn, sacrebleu, transformers, torch, etc.) |
+| `[all]` | Everything |
+
+## CLI
+
+```bash
+# Score a single output
+juryeval score --question "What is 2+2?" --output "4"
+
+# Compare two outputs
+juryeval compare --question "Capital of France?" --output-a "Paris" --output-b "London"
+
+# Evaluate a dataset
+juryeval evaluate --metric classification --predictions preds.json --references refs.json
+
+# Judge calibration
+juryeval calibrate --model gpt-4
+
+# Prompt sensitivity analysis
+juryeval prompt --question "Explain AI" --num-variants 5
+```
+
+Input files are JSON arrays, JSONL, or plain text (one sample per line). Run `juryeval <command> --help` for full options.
+
+## Python API
 
 ### Metrics
 
@@ -29,7 +53,7 @@ from juryeval import (
 
 acc_f1 = eval_classification(preds=["pos", "neg"], refs=["pos", "pos"])
 bleu   = eval_translation(preds=["hello world"], refs=["bonjour le monde"])
-rouge  = eval_summarization(preds=["summary here"], refs=["reference here"])
+rouge  = eval_summarization(preds=["summary"], refs=["reference"])
 ppl    = perplexity("This is a sentence.")
 fk     = flesch_kincaid("This is easy to read.")
 bs     = bert_score(preds=["answer"], refs=["reference"])
@@ -40,6 +64,7 @@ bs     = bert_score(preds=["answer"], refs=["reference"])
 ```python
 from juryeval import PairwiseJudge, PointwiseJudge, MultiJudgeEnsemble, JudgeCalibration
 
+# Pairwise comparison
 judge = PairwiseJudge("gpt-4")
 result = judge.compare(
     answer_a="Paris is the capital of France.",
@@ -57,10 +82,9 @@ result = scorer.score("Paris is the capital.", question="What is the capital of 
 ensemble = MultiJudgeEnsemble([
     PairwiseJudge("gpt-4"),
     PairwiseJudge("claude-3-opus"),
-    PairwiseJudge("gemini-pro"),
 ])
 result = ensemble.compare(answer_a, answer_b, question)
-# {"majority_winner": "A", "agreement": 0.67, "vote_distribution": {...}, ...}
+# {"majority_winner": "A", "agreement": 0.67, ...}
 
 # Judge calibration
 cal = JudgeCalibration()
@@ -90,20 +114,18 @@ report = pv.analyze("What is 2+2?")
 # {"num_variants": 7, "output_length_mean": 5.0, "outputs": [...], ...}
 ```
 
-### LM Eval Harness Integration
+## Framework Integrations
 
-```bash
-pip install juryeval[lmeval]
-python -c "from juryeval.lmeval import register_all; register_all()"
+| Framework | Setup |
+|-----------|-------|
+| **lm-eval-harness** | `pip install juryeval[lmeval]` then `from juryeval.lmeval import register_all; register_all()` |
+| **DeepEval** | `pip install deepeval[juryeval]` then `from deepeval.metrics.juryeval import JuryEvalMetric` |
+| **Lighteval** | `pip install lighteval[juryeval]` then use `JuryEvalPointwiseJudge` / `JuryEvalPairwiseJudge` metrics |
+| **LangChain** | `pip install langchain[juryeval]` |
 
-# Then register pairwise_judge / pointwise_judge metrics in your task YAML:
-# metric_list:
-#   - metric: pairwise_judge
-#     aggregation: mean
-#     higher_is_better: true
-```
+See each framework's documentation for detailed usage.
 
-### Running Tests
+## Development
 
 ```bash
 pip install pytest
