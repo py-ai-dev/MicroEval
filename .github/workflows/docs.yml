@@ -36,9 +36,9 @@ jobs:
       - name: Generate API docs
         run: |
           python -m pdoc juryeval \
-            -t docs/ \
-            --logo "https://raw.githubusercontent.com/liodon-ai/juryeval/main/docs/logo.svg" \
-            --logo-link "https://github.com/liodon-ai/juryeval" \
+            -t docs/dracula \
+            --logo "https://raw.githubusercontent.com/pydev42/juryeval/main/docs/logo.png" \
+            --logo-link "https://github.com/pydev42/juryeval" \
             -d google \
             -o docs/
 
