@@ -129,8 +129,8 @@ pip install pytest
 pytest tests/ -v
 ```
 
-Source: https://github.com/pydev42/juryeval
-Documentation: https://pydev42.github.io/juryeval/
+Source: https://github.com/liodon-ai/juryeval
+Documentation: https://liodon-ai.github.io/juryeval/
 License: MIT
 """
 
